@@ -19,9 +19,33 @@
 - [x] Features 섹션 (6개 기능 카드 그리드)
 - [x] Getting Started 섹션 (빠른 시작 가이드)
 
-## Phase 4: 확장 가이드 (사용자 커스텀)
-- [ ] 인증 페이지 추가 (로그인/회원가입)
-- [ ] API 라우트 예제 추가 (`app/api/`)
-- [ ] 데이터베이스 연동 (Prisma + PostgreSQL)
-- [ ] 환경변수 설정 (`.env.local` 템플릿)
-- [ ] 배포 설정 (Vercel, Docker)
+## Phase 4: 컴포넌트 확장 (Phase 1 완료)
+- [x] shadcn 컴포넌트 추가 (input, label, textarea, checkbox, radio-group, select, dialog, dropdown-menu, avatar, tooltip, skeleton, sonner)
+- [x] 유틸리티 라이브러리 설치 (react-hook-form, @hookform/resolvers, zod)
+- [x] 레이아웃 컴포넌트 생성 (Container, Section, PageHeader)
+- [x] Route Group 구조 리팩토링 ((marketing), (auth))
+- [x] 인증 레이아웃 + 로그인/회원가입 페이지 (react-hook-form + zod 데모)
+- [x] 기존 컴포넌트 Container 적용 (Header, Footer)
+
+## Phase 5: 대시보드 (Phase 2 완료)
+- [x] shadcn 컴포넌트 추가 (tabs, table, accordion, alert-dialog, popover, scroll-area, progress, alert)
+- [x] 유틸리티 라이브러리 (nuqs, date-fns)
+- [x] 대시보드 레이아웃 (Sidebar + DashboardHeader, 모바일 Sheet 지원)
+- [x] 대시보드 홈 /dashboard (통계 카드 + 최근 주문 테이블 + 트래픽 Progress)
+- [x] 설정 페이지 /dashboard/settings (Tabs + Switch + Alert + sonner 토스트)
+- [x] 프로필 페이지 /dashboard/settings/profile (Avatar + 폼 + RHF + zod)
+- [x] Empty State 컴포넌트
+- [x] Loading State 컴포넌트 (CardGridSkeleton, TableSkeleton, PageHeaderSkeleton)
+
+## Phase 6: 고급 컴포넌트 (Phase 3 완료)
+- [x] shadcn 컴포넌트 추가 (collapsible, toggle, toggle-group, slider, drawer)
+- [x] 데이터 관리 페이지 /dashboard/data (Table + Dialog CRUD + AlertDialog 삭제 + nuqs URL 필터 + EmptyState)
+- [x] 컴포넌트 쇼케이스 페이지 /components (전체 컴포넌트 데모 갤러리)
+
+## Phase 7: 유틸리티 훅 (usehooks-ts)
+- [x] usehooks-ts 설치
+- [x] Sidebar에 useMediaQuery + useLocalStorage 적용 (접힘 상태 저장, 반응형 인지)
+- [x] 데이터 페이지에 useDebounce 적용 (검색 300ms 디바운스)
+- [x] 컴포넌트 쇼케이스에 usehooks-ts 데모 섹션 추가 (useLocalStorage 카운터, useDebounce, useCopyToClipboard)
+- [x] CLAUDE.md 현행화 (기술 스택, 아키텍처, Provider 계층, shadcn 목록, usehooks-ts 섹션)
+- [x] ROADMAP.md 현행화
