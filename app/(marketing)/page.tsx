@@ -15,6 +15,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Container } from '@/components/layout/container'
+import { Section } from '@/components/layout/section'
 
 // 기술 스택 뱃지 목록
 const techBadges = [
@@ -74,9 +76,9 @@ const startCommands = [
 
 export default function HomePage() {
   return (
-    <div className='container mx-auto max-w-5xl px-4 py-16'>
+    <Container>
       {/* 히어로 섹션 */}
-      <section className='flex flex-col items-center text-center gap-6 pb-16'>
+      <Section className='flex flex-col items-center text-center gap-6 pb-8'>
         <div className='flex flex-wrap justify-center gap-2'>
           {techBadges.map((badge) => (
             <Badge key={badge} variant='secondary'>
@@ -114,17 +116,10 @@ export default function HomePage() {
             GitHub 보기
           </Button>
         </div>
-      </section>
+      </Section>
 
       {/* 기능 소개 섹션 */}
-      <section id='features' className='py-16'>
-        <div className='text-center mb-10'>
-          <h2 className='text-3xl font-bold tracking-tight'>주요 기능</h2>
-          <p className='mt-2 text-muted-foreground'>
-            개발 생산성을 높이는 최신 기술 스택
-          </p>
-        </div>
-
+      <Section id='features' title='주요 기능' description='개발 생산성을 높이는 최신 기술 스택'>
         <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {features.map((feature) => {
             const Icon = feature.icon
@@ -141,17 +136,10 @@ export default function HomePage() {
             )
           })}
         </div>
-      </section>
+      </Section>
 
       {/* 시작하기 섹션 */}
-      <section id='getting-started' className='py-16'>
-        <div className='text-center mb-10'>
-          <h2 className='text-3xl font-bold tracking-tight'>빠른 시작</h2>
-          <p className='mt-2 text-muted-foreground'>
-            3단계로 개발 환경을 구축하세요
-          </p>
-        </div>
-
+      <Section id='getting-started' title='빠른 시작' description='3단계로 개발 환경을 구축하세요'>
         <Card className='mx-auto max-w-2xl'>
           <CardHeader>
             <CardTitle>설치 방법</CardTitle>
@@ -177,7 +165,7 @@ export default function HomePage() {
             </p>
           </CardContent>
         </Card>
-      </section>
-    </div>
+      </Section>
+    </Container>
   )
 }

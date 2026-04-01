@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
+import { Toaster } from '@/components/ui/sonner'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,9 +39,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className='flex-1'>{children}</main>
-          <Footer />
+          {/* NuqsAdapter: URL 쿼리 상태 관리를 위해 필요 */}
+          <NuqsAdapter>
+            {/* TooltipProvider: 모든 Tooltip이 동작하려면 상위에 반드시 필요 */}
+            <TooltipProvider>
+              {children}
+            </TooltipProvider>
+          </NuqsAdapter>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
