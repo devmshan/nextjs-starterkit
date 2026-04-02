@@ -6,6 +6,9 @@ import {
   Table,
   Settings,
   Blocks,
+  Puzzle,
+  CloudDownload,
+  Zap,
 } from 'lucide-react'
 import { Container } from '@/components/layout/container'
 import { Section } from '@/components/layout/section'
@@ -61,6 +64,27 @@ const examples = [
     title: '컴포넌트 쇼케이스',
     description: '전체 UI 컴포넌트 미리보기. 31개 shadcn 컴포넌트 예제.',
     badge: 'UI',
+  },
+  {
+    href: '/examples/hooks',
+    icon: Puzzle,
+    title: 'usehooks-ts 훅',
+    description: 'useLocalStorage, useDebounceValue, useCopyToClipboard, useMediaQuery, useToggle 실전 데모.',
+    badge: '훅',
+  },
+  {
+    href: '/examples/data-fetching',
+    icon: CloudDownload,
+    title: '데이터 페칭',
+    description: '로딩·에러·성공 상태 관리. JSONPlaceholder API로 posts/users 가져오기 패턴.',
+    badge: '데이터',
+  },
+  {
+    href: '/examples/optimization',
+    icon: Zap,
+    title: '최적화 패턴',
+    description: 'Suspense 경계, next/dynamic 동적 임포트, 디바운스 검색 최적화 패턴.',
+    badge: '최적화',
   },
 ]
 
