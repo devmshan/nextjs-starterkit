@@ -16,8 +16,8 @@ import { Container } from '@/components/layout/container'
 // 네비게이션 링크 목록
 const navLinks = [
   { href: '/', label: '홈' },
-  { href: '#features', label: '기능' },
-  { href: '#getting-started', label: '시작하기' },
+  { href: '/examples', label: '예제' },
+  { href: '/docs', label: '문서' },
 ]
 
 // 다크모드 토글 버튼
