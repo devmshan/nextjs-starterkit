@@ -6,7 +6,10 @@ import {
   Moon,
   Smartphone,
 } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
+import { cn } from '@/lib/utils'
 import {
   Card,
   CardContent,
@@ -98,23 +101,18 @@ export default function HomePage() {
         </p>
 
         <div className='flex flex-wrap justify-center gap-4'>
-          {/* base-ui Button은 render prop으로 커스텀 엘리먼트를 렌더링 */}
-          <Button size='lg' render={<a href='#getting-started' />}>
+          {/* anchor 태그에 buttonVariants 클래스를 직접 적용하여 Base UI 경고 방지 */}
+          <a href='#getting-started' className={cn(buttonVariants({ size: 'lg' }))}>
             시작하기
-          </Button>
-          <Button
-            size='lg'
-            variant='outline'
-            render={
-              <a
-                href='https://github.com'
-                target='_blank'
-                rel='noopener noreferrer'
-              />
-            }
+          </a>
+          <a
+            href='https://github.com'
+            target='_blank'
+            rel='noopener noreferrer'
+            className={cn(buttonVariants({ size: 'lg', variant: 'outline' }))}
           >
             GitHub 보기
-          </Button>
+          </a>
         </div>
       </Section>
 

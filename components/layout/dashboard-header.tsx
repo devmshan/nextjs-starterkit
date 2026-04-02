@@ -1,7 +1,10 @@
 'use client'
 
-import { Menu, Bell } from 'lucide-react'
+import Link from 'next/link'
+import { Menu, Bell, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
+import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   Sheet,
@@ -50,6 +53,15 @@ export function DashboardHeader({ title }: DashboardHeaderProps) {
 
       {/* 우측 액션 영역 */}
       <div className='flex items-center gap-2'>
+        {/* 예제 목록으로 돌아가기 - Link에 buttonVariants 직접 적용 */}
+        <Link
+          href='/examples'
+          className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }))}
+          aria-label='예제 목록으로 돌아가기'
+        >
+          <ArrowLeft className='h-4 w-4' />
+          <span className='hidden sm:inline text-xs'>예제 목록</span>
+        </Link>
         <Button variant='ghost' size='icon' aria-label='알림'>
           <Bell className='h-5 w-5' />
         </Button>

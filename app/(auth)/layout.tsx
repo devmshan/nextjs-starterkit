@@ -18,7 +18,11 @@ export default function AuthLayout({
       <div className='w-full max-w-sm'>{children}</div>
 
       {/* 하단 링크 */}
-      <p className='text-muted-foreground mt-8 text-center text-xs'>
+      <p className='text-muted-foreground mt-8 text-center text-xs flex items-center justify-center gap-3'>
+        <Link href='/examples' className='hover:text-foreground underline underline-offset-4'>
+          ← 예제 목록
+        </Link>
+        <span>·</span>
         <Link href='/' className='hover:text-foreground underline underline-offset-4'>
           홈으로 돌아가기
         </Link>
