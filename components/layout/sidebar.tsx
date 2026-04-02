@@ -45,7 +45,8 @@ interface SidebarProps {
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname()
   // 데스크톱 여부 감지 (768px 이상)
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  // initializeWithValue: false → 서버/클라이언트 초기값 통일하여 hydration 오류 방지
+  const isDesktop = useMediaQuery('(min-width: 768px)', { initializeWithValue: false })
   // 사이드바 접힘 상태를 로컬스토리지에 저장 (기본값: 펼침)
   const [isCollapsed, setIsCollapsed] = useLocalStorage('sidebar-collapsed', false)
 
