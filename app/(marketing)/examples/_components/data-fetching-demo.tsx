@@ -1,12 +1,8 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import Link from 'next/link'
-import { ArrowLeft, RefreshCw, AlertTriangle, Users, FileText } from 'lucide-react'
+import { RefreshCw, AlertTriangle, Users, FileText } from 'lucide-react'
 
-import { Container } from '@/components/layout/container'
-import { Section } from '@/components/layout/section'
-import { PageHeader } from '@/components/layout/page-header'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -228,77 +224,62 @@ function UsersTab() {
   )
 }
 
-// 데이터 페칭 패턴 예제 페이지
-export default function DataFetchingExamplePage() {
+// 데이터 페칭 패턴 데모 콘텐츠
+export default function DataFetchingContent() {
   return (
-    <Container>
-      <Section>
-        <div className='mb-6'>
-          <Link href='/examples' className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors'>
-            <ArrowLeft className='h-4 w-4' />
-            예제 목록
-          </Link>
-        </div>
+    <div>
+      {/* 패턴 요약 */}
+      <div className='grid gap-3 sm:grid-cols-3'>
+        {[
+          { label: 'idle', desc: '초기 상태 — 요청 전', color: 'text-muted-foreground' },
+          { label: 'loading', desc: 'Skeleton UI 표시', color: 'text-blue-600 dark:text-blue-400' },
+          { label: 'error', desc: 'Alert + 재시도 버튼', color: 'text-destructive' },
+        ].map((s) => (
+          <Card key={s.label} className='p-4'>
+            <code className={`text-sm font-bold ${s.color}`}>{s.label}</code>
+            <p className='text-muted-foreground text-xs mt-1'>{s.desc}</p>
+          </Card>
+        ))}
+      </div>
 
-        <PageHeader
-          title='데이터 페칭 패턴'
-          description='로딩·에러·성공 상태를 명확하게 분리하는 Client Component 데이터 페칭 패턴입니다.'
-          actions={<Badge>데이터</Badge>}
-        />
-
-        {/* 패턴 요약 */}
-        <div className='mt-8 grid gap-3 sm:grid-cols-3'>
-          {[
-            { label: 'idle', desc: '초기 상태 — 요청 전', color: 'text-muted-foreground' },
-            { label: 'loading', desc: 'Skeleton UI 표시', color: 'text-blue-600 dark:text-blue-400' },
-            { label: 'error', desc: 'Alert + 재시도 버튼', color: 'text-destructive' },
-          ].map((s) => (
-            <Card key={s.label} className='p-4'>
-              <code className={`text-sm font-bold ${s.color}`}>{s.label}</code>
-              <p className='text-muted-foreground text-xs mt-1'>{s.desc}</p>
+      <div className='mt-8'>
+        <Tabs defaultValue='posts'>
+          <TabsList>
+            <TabsTrigger value='posts'>
+              <FileText className='mr-1.5 h-4 w-4' />Posts
+            </TabsTrigger>
+            <TabsTrigger value='users'>
+              <Users className='mr-1.5 h-4 w-4' />Users
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value='posts' className='mt-6'>
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-base'>Posts 목록</CardTitle>
+                <CardDescription>
+                  JSONPlaceholder API에서 포스트를 가져옵니다. 에러 시뮬레이션으로 에러 상태도 확인하세요.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <PostsTab />
+              </CardContent>
             </Card>
-          ))}
-        </div>
-
-        <div className='mt-8'>
-          <Tabs defaultValue='posts'>
-            <TabsList>
-              <TabsTrigger value='posts'>
-                <FileText className='mr-1.5 h-4 w-4' />Posts
-              </TabsTrigger>
-              <TabsTrigger value='users'>
-                <Users className='mr-1.5 h-4 w-4' />Users
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value='posts' className='mt-6'>
-              <Card>
-                <CardHeader>
-                  <CardTitle className='text-base'>Posts 목록</CardTitle>
-                  <CardDescription>
-                    JSONPlaceholder API에서 포스트를 가져옵니다. 에러 시뮬레이션으로 에러 상태도 확인하세요.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <PostsTab />
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value='users' className='mt-6'>
-              <Card>
-                <CardHeader>
-                  <CardTitle className='text-base'>Users 목록</CardTitle>
-                  <CardDescription>
-                    JSONPlaceholder API에서 사용자 목록을 카드 형태로 렌더링합니다.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <UsersTab />
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </Section>
-    </Container>
+          </TabsContent>
+          <TabsContent value='users' className='mt-6'>
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-base'>Users 목록</CardTitle>
+                <CardDescription>
+                  JSONPlaceholder API에서 사용자 목록을 카드 형태로 렌더링합니다.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <UsersTab />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
   )
 }

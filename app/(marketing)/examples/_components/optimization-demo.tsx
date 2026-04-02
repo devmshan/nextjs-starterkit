@@ -1,15 +1,11 @@
 'use client'
 
 import { useState, Suspense, lazy } from 'react'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useDebounceValue } from 'usehooks-ts'
 
-import { Container } from '@/components/layout/container'
-import { Section } from '@/components/layout/section'
-import { PageHeader } from '@/components/layout/page-header'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -254,93 +250,76 @@ function DebounceSearchDemo() {
   )
 }
 
-// 최적화 패턴 예제 페이지
-export default function OptimizationExamplePage() {
+// 최적화 패턴 데모 콘텐츠
+export default function OptimizationContent() {
   return (
-    <Container>
-      <Section>
-        <div className='mb-6'>
-          <Link href='/examples' className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors'>
-            <ArrowLeft className='h-4 w-4' />
-            예제 목록
-          </Link>
-        </div>
+    <div>
+      <Tabs defaultValue='suspense'>
+        <TabsList className='grid grid-cols-2 sm:grid-cols-4 h-auto'>
+          <TabsTrigger value='suspense'>Suspense</TabsTrigger>
+          <TabsTrigger value='dynamic'>next/dynamic</TabsTrigger>
+          <TabsTrigger value='image'>next/image</TabsTrigger>
+          <TabsTrigger value='debounce'>디바운스</TabsTrigger>
+        </TabsList>
 
-        <PageHeader
-          title='최적화 패턴'
-          description='Next.js 앱의 성능을 높이는 Suspense, dynamic import, Image 최적화, 디바운스 패턴을 실습합니다.'
-          actions={<Badge>최적화</Badge>}
-        />
+        <TabsContent value='suspense' className='mt-6'>
+          <OptSection
+            title='React Suspense 경계'
+            description='React.lazy()와 Suspense를 결합하여 컴포넌트를 지연 로드하고, 로딩 중에는 fallback UI를 보여줍니다.'
+            badge='React.lazy'
+          >
+            <SuspenseDemo />
+          </OptSection>
+        </TabsContent>
 
-        <div className='mt-10'>
-          <Tabs defaultValue='suspense'>
-            <TabsList className='grid grid-cols-2 sm:grid-cols-4 h-auto'>
-              <TabsTrigger value='suspense'>Suspense</TabsTrigger>
-              <TabsTrigger value='dynamic'>next/dynamic</TabsTrigger>
-              <TabsTrigger value='image'>next/image</TabsTrigger>
-              <TabsTrigger value='debounce'>디바운스</TabsTrigger>
-            </TabsList>
+        <TabsContent value='dynamic' className='mt-6'>
+          <OptSection
+            title='next/dynamic 동적 임포트'
+            description="Next.js의 dynamic()으로 SSR을 선택적으로 비활성화합니다. 브라우저 전용 API를 사용하는 컴포넌트에 필수적입니다."
+            badge='next/dynamic'
+          >
+            <DynamicImportDemo />
+          </OptSection>
+        </TabsContent>
 
-            <TabsContent value='suspense' className='mt-6'>
-              <OptSection
-                title='React Suspense 경계'
-                description='React.lazy()와 Suspense를 결합하여 컴포넌트를 지연 로드하고, 로딩 중에는 fallback UI를 보여줍니다.'
-                badge='React.lazy'
-              >
-                <SuspenseDemo />
-              </OptSection>
-            </TabsContent>
+        <TabsContent value='image' className='mt-6'>
+          <OptSection
+            title='next/image 이미지 최적화'
+            description="Next.js Image 컴포넌트는 자동으로 WebP 변환, lazy loading, CLS 방지를 처리합니다. 일반 <img>와 비교해보세요."
+            badge='next/image'
+          >
+            <ImageOptimizationDemo />
+          </OptSection>
+        </TabsContent>
 
-            <TabsContent value='dynamic' className='mt-6'>
-              <OptSection
-                title='next/dynamic 동적 임포트'
-                description="Next.js의 dynamic()으로 SSR을 선택적으로 비활성화합니다. 브라우저 전용 API를 사용하는 컴포넌트에 필수적입니다."
-                badge='next/dynamic'
-              >
-                <DynamicImportDemo />
-              </OptSection>
-            </TabsContent>
+        <TabsContent value='debounce' className='mt-6'>
+          <OptSection
+            title='디바운스 검색 최적화'
+            description='useDebounceValue로 검색 입력을 300ms 지연시켜 불필요한 API 호출을 방지합니다.'
+            badge='useDebounceValue'
+          >
+            <DebounceSearchDemo />
+          </OptSection>
+        </TabsContent>
+      </Tabs>
 
-            <TabsContent value='image' className='mt-6'>
-              <OptSection
-                title='next/image 이미지 최적화'
-                description="Next.js Image 컴포넌트는 자동으로 WebP 변환, lazy loading, CLS 방지를 처리합니다. 일반 <img>와 비교해보세요."
-                badge='next/image'
-              >
-                <ImageOptimizationDemo />
-              </OptSection>
-            </TabsContent>
+      <Separator className='my-10' />
 
-            <TabsContent value='debounce' className='mt-6'>
-              <OptSection
-                title='디바운스 검색 최적화'
-                description='useDebounceValue로 검색 입력을 300ms 지연시켜 불필요한 API 호출을 방지합니다.'
-                badge='useDebounceValue'
-              >
-                <DebounceSearchDemo />
-              </OptSection>
-            </TabsContent>
-          </Tabs>
-        </div>
-
-        <Separator className='my-10' />
-
-        {/* 패턴 요약 */}
-        <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-4'>
-          {[
-            { technique: 'React.lazy + Suspense', use: '대형 컴포넌트 코드 분할', icon: '🔀' },
-            { technique: 'next/dynamic', use: 'SSR 비활성화 / 동적 로드', icon: '⚡' },
-            { technique: 'next/image', use: '자동 이미지 최적화', icon: '🖼️' },
-            { technique: 'useDebounceValue', use: 'API 호출 횟수 감소', icon: '🔍' },
-          ].map((item) => (
-            <Card key={item.technique} className='p-4'>
-              <p className='text-lg'>{item.icon}</p>
-              <p className='font-medium text-sm mt-1'>{item.technique}</p>
-              <p className='text-muted-foreground text-xs mt-0.5'>{item.use}</p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-    </Container>
+      {/* 패턴 요약 */}
+      <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-4'>
+        {[
+          { technique: 'React.lazy + Suspense', use: '대형 컴포넌트 코드 분할', icon: '🔀' },
+          { technique: 'next/dynamic', use: 'SSR 비활성화 / 동적 로드', icon: '⚡' },
+          { technique: 'next/image', use: '자동 이미지 최적화', icon: '🖼️' },
+          { technique: 'useDebounceValue', use: 'API 호출 횟수 감소', icon: '🔍' },
+        ].map((item) => (
+          <Card key={item.technique} className='p-4'>
+            <p className='text-lg'>{item.icon}</p>
+            <p className='font-medium text-sm mt-1'>{item.technique}</p>
+            <p className='text-muted-foreground text-xs mt-0.5'>{item.use}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
   )
 }

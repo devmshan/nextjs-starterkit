@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
-import { ArrowLeft, Copy, Check, Monitor, Smartphone } from 'lucide-react'
+import { Copy, Check, Monitor, Smartphone } from 'lucide-react'
 import {
   useLocalStorage,
   useDebounceValue,
@@ -12,9 +11,6 @@ import {
 } from 'usehooks-ts'
 import { toast } from 'sonner'
 
-import { Container } from '@/components/layout/container'
-import { Section } from '@/components/layout/section'
-import { PageHeader } from '@/components/layout/page-header'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -175,61 +171,44 @@ function HookSection({ hook, description, children }: HookSectionProps) {
   )
 }
 
-// usehooks-ts 훅 데모 페이지
-export default function HooksExamplePage() {
+// usehooks-ts 훅 데모 콘텐츠
+export default function HooksContent() {
   return (
-    <Container>
-      <Section>
-        <div className='mb-6'>
-          <Link href='/examples' className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors'>
-            <ArrowLeft className='h-4 w-4' />
-            예제 목록
-          </Link>
-        </div>
+    <div className='space-y-6'>
+      <HookSection
+        hook='useLocalStorage'
+        description='브라우저 localStorage와 React 상태를 동기화합니다. 새로고침 후에도 값이 유지됩니다.'
+      >
+        <LocalStorageDemo />
+      </HookSection>
 
-        <PageHeader
-          title='usehooks-ts 훅 데모'
-          description='usehooks-ts 라이브러리의 대표 훅을 실제로 동작하는 예제로 확인하세요.'
-          actions={<Badge>훅</Badge>}
-        />
+      <HookSection
+        hook='useDebounceValue'
+        description='빠르게 바뀌는 입력값을 지정한 시간(ms) 이후에만 반영하여 불필요한 API 호출을 줄입니다.'
+      >
+        <DebounceDemo />
+      </HookSection>
 
-        <div className='mt-10 space-y-6'>
-          <HookSection
-            hook='useLocalStorage'
-            description='브라우저 localStorage와 React 상태를 동기화합니다. 새로고침 후에도 값이 유지됩니다.'
-          >
-            <LocalStorageDemo />
-          </HookSection>
+      <HookSection
+        hook='useCopyToClipboard'
+        description='텍스트를 클립보드에 복사하고 성공 여부를 반환합니다. 마지막으로 복사한 값도 추적합니다.'
+      >
+        <CopyToClipboardDemo />
+      </HookSection>
 
-          <HookSection
-            hook='useDebounceValue'
-            description='빠르게 바뀌는 입력값을 지정한 시간(ms) 이후에만 반영하여 불필요한 API 호출을 줄입니다.'
-          >
-            <DebounceDemo />
-          </HookSection>
+      <HookSection
+        hook='useMediaQuery'
+        description='CSS 미디어 쿼리를 React 상태로 구독합니다. Sidebar의 모바일/데스크톱 분기에 활용됩니다.'
+      >
+        <MediaQueryDemo />
+      </HookSection>
 
-          <HookSection
-            hook='useCopyToClipboard'
-            description='텍스트를 클립보드에 복사하고 성공 여부를 반환합니다. 마지막으로 복사한 값도 추적합니다.'
-          >
-            <CopyToClipboardDemo />
-          </HookSection>
-
-          <HookSection
-            hook='useMediaQuery'
-            description='CSS 미디어 쿼리를 React 상태로 구독합니다. Sidebar의 모바일/데스크톱 분기에 활용됩니다.'
-          >
-            <MediaQueryDemo />
-          </HookSection>
-
-          <HookSection
-            hook='useToggle'
-            description='boolean 상태 토글을 간결하게 관리합니다. setValue로 직접 지정도 가능합니다.'
-          >
-            <ToggleDemo />
-          </HookSection>
-        </div>
-      </Section>
-    </Container>
+      <HookSection
+        hook='useToggle'
+        description='boolean 상태 토글을 간결하게 관리합니다. setValue로 직접 지정도 가능합니다.'
+      >
+        <ToggleDemo />
+      </HookSection>
+    </div>
   )
 }

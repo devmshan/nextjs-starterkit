@@ -6,9 +6,7 @@ import {
   Bold, Italic, Underline,
   AlignLeft, AlignCenter, AlignRight,
   Bell, CheckCircle, AlertTriangle, Info,
-  Copy, Check,
 } from 'lucide-react'
-import { useLocalStorage, useDebounceValue, useCopyToClipboard } from 'usehooks-ts'
 
 import { Container } from '@/components/layout/container'
 import { Section } from '@/components/layout/section'
@@ -71,67 +69,6 @@ function ShowcaseSection({ title, children }: { title: string; children: React.R
     <div className='space-y-4'>
       <h2 className='text-lg font-semibold border-b pb-2'>{title}</h2>
       {children}
-    </div>
-  )
-}
-
-// usehooks-ts 데모: useLocalStorage 카운터
-function LocalStorageDemo() {
-  const [count, setCount] = useLocalStorage('demo-counter', 0)
-  return (
-    <div className='flex items-center gap-3'>
-      <Button variant='outline' size='sm' onClick={() => setCount((c) => c - 1)}>−</Button>
-      <span className='min-w-8 text-center font-mono text-lg font-semibold'>{count}</span>
-      <Button variant='outline' size='sm' onClick={() => setCount((c) => c + 1)}>+</Button>
-      <Button variant='ghost' size='sm' onClick={() => setCount(0)}>초기화</Button>
-      <span className='text-muted-foreground text-xs'>새로고침해도 값이 유지됩니다</span>
-    </div>
-  )
-}
-
-// usehooks-ts 데모: useDebounceValue 검색
-function DebounceDemo() {
-  const [inputValue, setInputValue] = useState('')
-  const [debouncedValue] = useDebounceValue(inputValue, 400)
-  return (
-    <div className='max-w-sm space-y-2'>
-      <Input
-        placeholder='입력하면 400ms 후에 디바운스 값이 변경됩니다'
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-      <div className='flex gap-4 text-sm'>
-        <span>입력값: <code className='bg-muted rounded px-1'>{inputValue || '—'}</code></span>
-        <span>디바운스: <code className='bg-muted rounded px-1'>{debouncedValue || '—'}</code></span>
-      </div>
-    </div>
-  )
-}
-
-// usehooks-ts 데모: useCopyToClipboard
-function CopyToClipboardDemo() {
-  const [copiedText, copyToClipboard] = useCopyToClipboard()
-  const [copied, setCopied] = useState(false)
-  const sampleText = 'npx create-next-app@latest --example https://github.com/your-starter-kit'
-
-  const handleCopy = async () => {
-    const ok = await copyToClipboard(sampleText)
-    if (ok) {
-      setCopied(true)
-      toast.success('클립보드에 복사되었습니다')
-      setTimeout(() => setCopied(false), 2000)
-    }
-  }
-
-  return (
-    <div className='flex items-center gap-2 max-w-lg'>
-      <code className='bg-muted flex-1 rounded px-3 py-2 text-xs truncate'>{sampleText}</code>
-      <Button variant='outline' size='icon' onClick={handleCopy} aria-label='복사'>
-        {copied ? <Check className='h-4 w-4 text-green-500' /> : <Copy className='h-4 w-4' />}
-      </Button>
-      {copiedText && (
-        <span className='text-muted-foreground text-xs'>복사됨</span>
-      )}
     </div>
   )
 }
@@ -390,35 +327,6 @@ export default function ComponentsPage() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
-          </ShowcaseSection>
-
-          {/* usehooks-ts 훅 데모 */}
-          <ShowcaseSection title='usehooks-ts Hooks'>
-            <div className='space-y-6'>
-              {/* useLocalStorage 카운터 */}
-              <div className='space-y-2'>
-                <p className='text-muted-foreground text-sm font-medium'>
-                  <code>useLocalStorage</code> — 브라우저 저장소 연동 카운터
-                </p>
-                <LocalStorageDemo />
-              </div>
-
-              {/* useDebounceValue 검색 */}
-              <div className='space-y-2'>
-                <p className='text-muted-foreground text-sm font-medium'>
-                  <code>useDebounceValue</code> — 입력 디바운스 (400ms)
-                </p>
-                <DebounceDemo />
-              </div>
-
-              {/* useCopyToClipboard */}
-              <div className='space-y-2'>
-                <p className='text-muted-foreground text-sm font-medium'>
-                  <code>useCopyToClipboard</code> — 클립보드 복사
-                </p>
-                <CopyToClipboardDemo />
-              </div>
             </div>
           </ShowcaseSection>
 
